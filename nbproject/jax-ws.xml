@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="AccountService">
-      <implementation-class>Service.AccountService</implementation-class>
+    <service name="SAccount">
+      <implementation-class>Service.SAccount</implementation-class>
     </service>
-    <service name="BookService">
-      <implementation-class>Service.BookService</implementation-class>
+    <service name="SBook">
+      <implementation-class>Service.SBook</implementation-class>
     </service>
   </services>
-  <clients/>
+  <clients>
+    <client name="BookService">
+      <wsdl-url>file:/E:/thien/Learning/KTTKPM/Code/KTTKServer/BookService.wsdl</wsdl-url>
+      <local-wsdl-file>BookService.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">ddd</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>file:/E:/thien/Learning/KTTKPM/Code/KTTKServer/BookService.wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>ddd</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+  </clients>
   <jsr109>false</jsr109>
 </jax-ws>

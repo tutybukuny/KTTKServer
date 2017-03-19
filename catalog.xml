@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/E:/thien/Learning/KTTKPM/Code/KTTKServer/AccountService.wsdl" uri="src/conf/xml-resources/web-service-references/AccountService/wsdl/AccountService.wsdl"/>
+    <system systemId="http://localhost:8084/KTTKServer/Account?xsd=1" uri="src/conf/xml-resources/web-service-references/AccountService/wsdl/localhost_8084/KTTKServer/Account.xsd_1.xsd"/>
+    <system systemId="http://localhost:8084/KTTKServer/BookManagement?xsd=1" uri="src/conf/xml-resources/web-service-references/BookService/wsdl/localhost_8084/KTTKServer/BookManagement.xsd_1.xsd"/>
+    <system systemId="http://localhost:8084/KTTKServer/ForBook?xsd=1" uri="src/conf/xml-resources/web-service-references/BookService/wsdl/localhost_8084/KTTKServer/ForBook.xsd_1.xsd"/>
+    <system systemId="file:/E:/thien/Learning/KTTKPM/Code/KTTKServer/BookService.wsdl" uri="src/conf/xml-resources/web-service-references/BookService/wsdl/BookService.wsdl"/>
+</catalog>

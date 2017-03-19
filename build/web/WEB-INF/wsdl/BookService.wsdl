@@ -1,0 +1,173 @@
+
+
+<definitions name="ForBook" targetNamespace="http://Service/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Service/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/wspolicy" xmlns:wsu="http://docs.oasisopen.org/wss/2004/01/oasis200401wsswssecurityutility1.0.xsd">
+
+
+<types>
+
+
+<xsd:schema>
+
+<xsd:import schemaLocation="http://localhost:8084/KTTKServer/ForBook?xsd=1" namespace="http://Service/"/>
+
+</xsd:schema>
+
+</types>
+
+
+<message name="deleteBook">
+
+<part name="parameters" element="tns:deleteBook"/>
+
+</message>
+
+
+<message name="deleteBookResponse">
+
+<part name="parameters" element="tns:deleteBookResponse"/>
+
+</message>
+
+
+<message name="updateBook">
+
+<part name="parameters" element="tns:updateBook"/>
+
+</message>
+
+
+<message name="updateBookResponse">
+
+<part name="parameters" element="tns:updateBookResponse"/>
+
+</message>
+
+
+<message name="addBook">
+
+<part name="parameters" element="tns:addBook"/>
+
+</message>
+
+
+<message name="addBookResponse">
+
+<part name="parameters" element="tns:addBookResponse"/>
+
+</message>
+
+
+<portType name="ForBook">
+
+
+<operation name="deleteBook">
+
+<input message="tns:deleteBook" wsam:Action="http://Service/ForBook/deleteBookRequest"/>
+
+<output message="tns:deleteBookResponse" wsam:Action="http://Service/ForBook/deleteBookResponse"/>
+
+</operation>
+
+
+<operation name="updateBook">
+
+<input message="tns:updateBook" wsam:Action="http://Service/ForBook/updateBookRequest"/>
+
+<output message="tns:updateBookResponse" wsam:Action="http://Service/ForBook/updateBookResponse"/>
+
+</operation>
+
+
+<operation name="addBook">
+
+<input message="tns:addBook" wsam:Action="http://Service/ForBook/addBookRequest"/>
+
+<output message="tns:addBookResponse" wsam:Action="http://Service/ForBook/addBookResponse"/>
+
+</operation>
+
+</portType>
+
+
+<binding name="ForBookPortBinding" type="tns:ForBook">
+
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+
+<operation name="deleteBook">
+
+<soap:operation soapAction=""/>
+
+
+<input>
+
+<soap:body use="literal"/>
+
+</input>
+
+
+<output>
+
+<soap:body use="literal"/>
+
+</output>
+
+</operation>
+
+
+<operation name="updateBook">
+
+<soap:operation soapAction=""/>
+
+
+<input>
+
+<soap:body use="literal"/>
+
+</input>
+
+
+<output>
+
+<soap:body use="literal"/>
+
+</output>
+
+</operation>
+
+
+<operation name="addBook">
+
+<soap:operation soapAction=""/>
+
+
+<input>
+
+<soap:body use="literal"/>
+
+</input>
+
+
+<output>
+
+<soap:body use="literal"/>
+
+</output>
+
+</operation>
+
+</binding>
+
+
+<service name="ForBook">
+
+
+<port name="ForBookPort" binding="tns:ForBookPortBinding">
+
+<soap:address location="http://localhost:8084/KTTKServer/ForBook"/>
+
+</port>
+
+</service>
+
+</definitions>

@@ -1,4 +1,6 @@
-<definitions name="AccountService" targetNamespace="http://Service/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Service/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/wspolicy" xmlns:wsu="http://docs.oasisopen.org/wss/2004/01/oasis200401wsswssecurityutility1.0.xsd">
+
+
+<definitions name="Account" targetNamespace="http://Service/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Service/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp="http://www.w3.org/ns/wspolicy" xmlns:wsu="http://docs.oasisopen.org/wss/2004/01/oasis200401wsswssecurityutility1.0.xsd">
 
 
 <types>
@@ -6,7 +8,7 @@
 
 <xsd:schema>
 
-<xsd:import schemaLocation="http://localhost:8084/KTTKServer/AccountService?xsd=1" namespace="http://Service/"/>
+<xsd:import schemaLocation="http://localhost:8084/KTTKServer/Account?xsd=1" namespace="http://Service/"/>
 
 </xsd:schema>
 
@@ -27,21 +29,21 @@
 </message>
 
 
-<portType name="AccountService">
+<portType name="Account">
 
 
 <operation name="checkLogin">
 
-<input message="tns:checkLogin" wsam:Action="http://Service/AccountService/checkLoginRequest"/>
+<input message="tns:checkLogin" wsam:Action="http://Service/Account/checkLoginRequest"/>
 
-<output message="tns:checkLoginResponse" wsam:Action="http://Service/AccountService/checkLoginResponse"/>
+<output message="tns:checkLoginResponse" wsam:Action="http://Service/Account/checkLoginResponse"/>
 
 </operation>
 
 </portType>
 
 
-<binding name="AccountServicePortBinding" type="tns:AccountService">
+<binding name="AccountPortBinding" type="tns:Account">
 
 <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 
@@ -69,12 +71,12 @@
 </binding>
 
 
-<service name="AccountService">
+<service name="Account">
 
 
-<port name="AccountServicePort" binding="tns:AccountServicePortBinding">
+<port name="AccountPort" binding="tns:AccountPortBinding">
 
-<soap:address location="http://localhost:8084/KTTKServer/AccountService"/>
+<soap:address location="http://localhost:8084/KTTKServer/Account"/>
 
 </port>
 

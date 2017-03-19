@@ -19,19 +19,19 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsgen-AccountService" depends="wsgen-init">
+    <target name="wsgen-SAccount" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-Service.AccountService.xml"/>
+            <fileset dir="${webinf.dir}" includes="wsit-Service.SAccount.xml"/>
         </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="Service.AccountService" xendorsed="true">
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="Service.SAccount" xendorsed="true">
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
-    <target name="wsgen-BookService" depends="wsgen-init">
+    <target name="wsgen-SBook" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-Service.BookService.xml"/>
+            <fileset dir="${webinf.dir}" includes="wsit-Service.SBook.xml"/>
         </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="Service.BookService" xendorsed="true">
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="Service.SBook" xendorsed="true">
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
@@ -40,4 +40,32 @@
                 JAX-WS WSIMPORT SECTION
                 ===================
             -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-BookService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BookService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BookService" destdir="${build.generated.dir}/jax-wsCache/BookService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BookService/wsdl/BookService.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="file:/E:/thien/Learning/KTTKPM/Code/KTTKServer/BookService.wsdl" xnocompile="true" xendorsed="true" package="ddd">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/BookService/wsdl/BookService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BookService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BookService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BookService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ddd"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/BookService"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-BookService"/>
 </project>

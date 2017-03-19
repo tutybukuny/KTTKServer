@@ -4,22 +4,22 @@
         <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>AccountService</servlet-name>
+        <servlet-name>SAccount</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>BookService</servlet-name>
+        <servlet-name>SBook</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AccountService</servlet-name>
-        <url-pattern>/AccountService</url-pattern>
+        <servlet-name>SAccount</servlet-name>
+        <url-pattern>/SAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BookService</servlet-name>
-        <url-pattern>/BookService</url-pattern>
+        <servlet-name>SBook</servlet-name>
+        <url-pattern>/SBook</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
