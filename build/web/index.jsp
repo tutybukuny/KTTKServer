@@ -1,9 +1,11 @@
 <%-- 
     Document   : index
-    Created on : Mar 20, 2017, 7:47:58 AM
-    Author     : tutyb
+    Created on : Mar 21, 2017, 10:44:58 PM
+    Author     : TienDuc
 --%>
 
+<%@page import="Model.Account"%>
+<%@page import="Control.HumanControl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="Management" method="POST">
+            <input type="text" value="login" name="action" hidden="true"/>
+            <input type="text" name="username"/><br>
+            <input type="password" name="password"><br>
+            <input type="submit" value="Login"/>
+        </form>
     </body>
 </html>
