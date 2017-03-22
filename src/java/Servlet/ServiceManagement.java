@@ -35,44 +35,49 @@ public class ServiceManagement extends HttpServlet {
      * @param response servlet response
      * @throws IOException if an I/O error occurs
      */
-    protected void login(HttpServletRequest request,HttpServletResponse response){
+    protected void login(HttpServletRequest request, HttpServletResponse response) {
         HumanControl control = new HumanControl();
-        String json = request.getParameter("jsonaccount");
+        String json = request.getParameter("json");
+        System.out.println("json: " + json);
         Gson gson = new Gson();
         Account acc = gson.fromJson(json, Account.class);
-        control.login(acc);
-        String jsonResult = gson.toJson(control.login(acc));
+        System.out.println("Account: " + acc.getUsername() + " " + acc.getPassword());
+        String jsonResult = "{result: \"" + control.login(acc) + "\"}";
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    protected void addBook(HttpServletRequest request,HttpServletResponse response){
+
+    protected void addBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
-        String json = request.getParameter("jsonbook");
+        String json = request.getParameter("json");
         Gson gson = new Gson();
-        Book book = gson.fromJson(json,Book.class);
+        Book book = gson.fromJson(json, Book.class);
         control.deleteBook(book);
     }
-    protected void deleteBook(HttpServletRequest request,HttpServletResponse response){
+
+    protected void deleteBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
-        String json = request.getParameter("jsonbook");
+        String json = request.getParameter("json");
         Gson gson = new Gson();
-        Book book = gson.fromJson(json,Book.class);
+        Book book = gson.fromJson(json, Book.class);
         control.addBook(book);
     }
-    protected void updateBook(HttpServletRequest request,HttpServletResponse response){
+
+    protected void updateBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
-        String json = request.getParameter("jsonbook");
+        String json = request.getParameter("json");
         Gson gson = new Gson();
-        Book book = gson.fromJson(json,Book.class);
+        Book book = gson.fromJson(json, Book.class);
         control.updateBook(book);
     }
-    protected void getBookByName(HttpServletRequest request,HttpServletResponse response){
+
+    protected void getBookByName(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
-        String name = request.getParameter("nameofBook");
+        String name = request.getParameter("json");
         ArrayList<Book> books = control.getBookByName(name);
         String jsonResult = gson.toJson(books);
         try {
@@ -81,10 +86,11 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    protected void getBookById(HttpServletRequest request,HttpServletResponse response){
+
+    protected void getBookById(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
-        String idofBook = request.getParameter("idofBook");
+        String idofBook = request.getParameter("json");
         int id = Integer.parseInt(idofBook);
         Book book = control.getBookById(id);
         String jsonResult = gson.toJson(book);
@@ -94,6 +100,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -121,25 +128,25 @@ public class ServiceManagement extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         //viết chỗ xử lý json, trả về json vào đây
         String action = request.getParameter("action");
-        if(action.equals("login")){
+        if (action.equals("login")) {
             login(request, response);
         }
-        if(action.equals("addBook")){
+        if (action.equals("addBook")) {
             addBook(request, response);
         }
-        if(action.equals("updateBook")){
+        if (action.equals("updateBook")) {
             updateBook(request, response);
         }
-        if(action.equals("deleteBook")){
+        if (action.equals("deleteBook")) {
             deleteBook(request, response);
         }
-        if(action.equals("getBookById")){
+        if (action.equals("getBookById")) {
             getBookById(request, response);
         }
-        if(action.equals("getBookByName")){
+        if (action.equals("getBookByName")) {
             getBookByName(request, response);
         }
     }
