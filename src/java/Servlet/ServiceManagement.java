@@ -40,6 +40,7 @@ public class ServiceManagement extends HttpServlet {
         Gson gson = new Gson();
         Account acc = gson.fromJson(json, Account.class);
         String jsonResult = "{result: \"" + control.login(acc) + "\"}";
+        control.closeDAO();
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
@@ -53,6 +54,7 @@ public class ServiceManagement extends HttpServlet {
         Gson gson = new Gson();
         Book book = gson.fromJson(json, Book.class);
         control.deleteBook(book);
+        control.closeDAO();
     }
 
     protected void deleteBook(HttpServletRequest request, HttpServletResponse response) {
@@ -61,6 +63,7 @@ public class ServiceManagement extends HttpServlet {
         Gson gson = new Gson();
         Book book = gson.fromJson(json, Book.class);
         control.addBook(book);
+        control.closeDAO();
     }
 
     protected void updateBook(HttpServletRequest request, HttpServletResponse response) {
@@ -69,6 +72,7 @@ public class ServiceManagement extends HttpServlet {
         Gson gson = new Gson();
         Book book = gson.fromJson(json, Book.class);
         control.updateBook(book);
+        control.closeDAO();
     }
 
     protected void getBookByName(HttpServletRequest request, HttpServletResponse response) {
@@ -77,6 +81,7 @@ public class ServiceManagement extends HttpServlet {
         String name = request.getParameter("json");
         ArrayList<Book> books = control.getBookByName(name);
         String jsonResult = gson.toJson(books);
+        control.closeDAO();
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
@@ -91,6 +96,7 @@ public class ServiceManagement extends HttpServlet {
         int id = Integer.parseInt(idofBook);
         Book book = control.getBookById(id);
         String jsonResult = gson.toJson(book);
+        control.closeDAO();
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
@@ -98,7 +104,43 @@ public class ServiceManagement extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    protected void getBooks(HttpServletRequest request, HttpServletResponse response) {
+        BookControl control = new BookControl();
+        Gson gson = new Gson();
+        String jsonResult = gson.toJson(control.getBooks());
+        control.closeDAO();
+        try {
+            response.getWriter().write(jsonResult);
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    protected void getAuthors(HttpServletRequest request, HttpServletResponse response) {
+        BookControl control = new BookControl();
+        Gson gson = new Gson();
+        String jsonResult = gson.toJson(control.getAuthors());
+        control.closeDAO();
+        try {
+            response.getWriter().write(jsonResult);
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    protected void getPublishers(HttpServletRequest request, HttpServletResponse response) {
+        BookControl control = new BookControl();
+        Gson gson = new Gson();
+        String jsonResult = gson.toJson(control.getPublishers());
+        control.closeDAO();
+        try {
+            response.getWriter().write(jsonResult);
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -145,6 +187,15 @@ public class ServiceManagement extends HttpServlet {
         }
         if (action.equals("getBookByName")) {
             getBookByName(request, response);
+        }
+        if (action.equals("getBooks")) {
+            getBooks(request, response);
+        }
+        if (action.equals("getAuthors")) {
+            getAuthors(request, response);
+        }
+        if (action.equals("getPublishers")) {
+            getPublishers(request, response);
         }
     }
 
