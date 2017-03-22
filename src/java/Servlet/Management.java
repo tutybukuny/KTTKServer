@@ -70,6 +70,10 @@ public class Management extends HttpServlet {
         String action = request.getParameter("action");
         if (action.equals("toAllBook")) {
             allBooks(request, response);
+        } else if (action.equals("update")) {
+            updateBook(request, response);
+        } else if (action.equals("delete")) {
+            deleteBook(request, response);
         }
     }
 
@@ -135,13 +139,28 @@ public class Management extends HttpServlet {
     }
 
     private void allBooks(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("ddmm");
         BookControl bookControl = new BookControl();
         ArrayList<Book> books = bookControl.getBooks();
-        System.out.println("booksize: " + books.size());
+        bookControl.closeDAO();
         request.setAttribute("books", books);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allBooks.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void updateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BookControl control = new BookControl();
+        ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
+        ArrayList<Author> authors = control.getAuthors();
+        ArrayList<Publisher> publishers = control.getPublishers();
+        request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
+        request.setAttribute("publishers", publishers);
+        request.setAttribute("authors", authors);
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/updateBook.jsp");
+        dis.forward(request, response);
+    }
+
+    private void deleteBook(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

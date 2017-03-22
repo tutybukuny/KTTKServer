@@ -47,7 +47,7 @@
                     <td width="70%">
                         <select>
                             <c:forEach items="${publishers}" var="pub">
-                                
+                                <option value="${pub.ID}">${pub.name}</option>
                             </c:forEach>
                         </select>
                     </td> 
