@@ -40,7 +40,13 @@
             <%
 
                 ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("books");
+<<<<<<< HEAD
                 for (Book book : books) {
+=======
+                session.setAttribute("books", books);
+                for (int i = 0; i < books.size(); i++) {
+                    Book book = books.get(i);
+>>>>>>> remotes/origin/TienDuc
             %>
             <tr>
 
@@ -52,10 +58,17 @@
                 <td><%=book.getAuthor().getName()%></td>
                 <td><%=book.getBookType().getName()%></td>
                 <td>
+<<<<<<< HEAD
                     <a href="updateBook.jsp?id=<%=book.getID()%>"><span class="glyphicon glyphicon-pencil"></span></a>
                 </td>
                 <td>
                     <a href="confirmDelete.jsp?id=<%=book.getID()%>"><span class="glyphicon glyphicon-remove"></span></a>
+=======
+                    <a href="/KTTKServer/Management?index=<%=i%>&action=update"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+                <td>
+                    <a href="/KTTKServer/Management?index=<%=i%>&action=delete"><span class="glyphicon glyphicon-remove"></span></a>
+>>>>>>> remotes/origin/TienDuc
                 </td>
             </tr>
             <%
