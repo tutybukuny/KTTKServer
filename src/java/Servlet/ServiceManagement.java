@@ -36,11 +36,12 @@ public class ServiceManagement extends HttpServlet {
      */
     protected void login(HttpServletRequest request, HttpServletResponse response) {
         HumanControl control = new HumanControl();
-        String json = request.getParameter("jsonaccount");
+        String json = request.getParameter("json");
+        System.out.println("json: " + json);
         Gson gson = new Gson();
         Account acc = gson.fromJson(json, Account.class);
-        control.login(acc);
-        String jsonResult = gson.toJson(control.login(acc));
+        System.out.println("Account: " + acc.getUsername() + " " + acc.getPassword());
+        String jsonResult = "{result: \"" + control.login(acc) + "\"}";
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
@@ -50,7 +51,7 @@ public class ServiceManagement extends HttpServlet {
 
     protected void addBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
-        String json = request.getParameter("jsonbook");
+        String json = request.getParameter("json");
         Gson gson = new Gson();
         Book book = gson.fromJson(json, Book.class);
         control.deleteBook(book);
@@ -58,7 +59,7 @@ public class ServiceManagement extends HttpServlet {
 
     protected void deleteBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
-        String json = request.getParameter("jsonbook");
+        String json = request.getParameter("json");
         Gson gson = new Gson();
         Book book = gson.fromJson(json, Book.class);
         control.addBook(book);
@@ -66,7 +67,7 @@ public class ServiceManagement extends HttpServlet {
 
     protected void updateBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
-        String json = request.getParameter("jsonbook");
+        String json = request.getParameter("json");
         Gson gson = new Gson();
         Book book = gson.fromJson(json, Book.class);
         control.updateBook(book);
@@ -75,7 +76,7 @@ public class ServiceManagement extends HttpServlet {
     protected void getBookByName(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
-        String name = request.getParameter("nameofBook");
+        String name = request.getParameter("json");
         ArrayList<Book> books = control.getBookByName(name);
         String jsonResult = gson.toJson(books);
         try {
@@ -88,7 +89,7 @@ public class ServiceManagement extends HttpServlet {
     protected void getBookById(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
-        String idofBook = request.getParameter("idofBook");
+        String idofBook = request.getParameter("json");
         int id = Integer.parseInt(idofBook);
         Book book = control.getBookById(id);
         String jsonResult = gson.toJson(book);
