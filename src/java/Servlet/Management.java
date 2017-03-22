@@ -67,6 +67,9 @@ public class Management extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action.equals("toAllBook")) {
             allBooks(request, response);
@@ -89,10 +92,14 @@ public class Management extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
         if (action.equals("login")) {
             checkLogin(request, response);
+        } else if (action.equals("confirmUpdate")) {
+            confirmUpdate(request, response);
         }
     }
 
@@ -152,11 +159,34 @@ public class Management extends HttpServlet {
         ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
         ArrayList<Author> authors = control.getAuthors();
         ArrayList<Publisher> publishers = control.getPublishers();
+        ArrayList<BookType> bookTypes = control.getBookTypes();
+        control.closeDAO();
         request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
         request.setAttribute("publishers", publishers);
         request.setAttribute("authors", authors);
+        request.setAttribute("bookTypes", bookTypes);
         RequestDispatcher dis = getServletContext().getRequestDispatcher("/updateBook.jsp");
         dis.forward(request, response);
+    }
+
+    private void confirmUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BookControl bookControl = new BookControl();
+        Book book = bookControl.getBookById(Integer.parseInt((String) request.getParameter("bookID")));
+        Author author = new Author();
+        author.setID(Integer.parseInt((String) request.getParameter("author")));
+        BookType type = new BookType();
+        type.setID(Integer.parseInt((String) request.getParameter("bookType")));
+        Publisher pub = new Publisher();
+        pub.setID(Integer.parseInt((String) request.getParameter("publisher")));
+        book.setAuthor(author);
+        book.setBookType(type);
+        book.setPublisher(pub);
+        book.setName((String) request.getParameter("name"));
+        book.setDescription((String) request.getParameter("description"));
+        book.setCost(Float.parseFloat((String) request.getParameter("cost")));
+        bookControl.updateBook(book);
+        bookControl.closeDAO();
+        allBooks(request, response);
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response) {
