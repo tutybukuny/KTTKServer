@@ -19,10 +19,11 @@
     </head>
     <body>
         <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="index.jsp">All Books</a></li>
-            <li><a href="addBook.jsp">Add Book</a></li>
-            <li><a href="search.jsp">Search</a></li>           
+            <li class="active"><a href="Management?action=toAllBook">All Books</a></li>
+            <li><a href="Management?action=toAddBook">Add Book</a></li>
+            <li><a href="Management?action=toSearch">Search</a></li>           
         </ul>
+        <h3 align="center">Update a book</h3>
         <form method="POST" name = "UpdateB" action="/KTTKServer/Management" >
             <input type="text" value="${book.ID}" name="bookID" hidden="true"/>
             <input type="text" value="confirmUpdate" name="action" hidden="true"/>
@@ -57,7 +58,7 @@
                 <tr>
                     <td width="30%">Publisher</td>
                     <td width="70%">
-                        <select name="publisher">
+                        <select class="form-control" name="publisher">
                             <c:forEach items="${publishers}" var="pub">
                                 <option value="${pub.ID}" 
                                         <c:choose>
@@ -73,7 +74,7 @@
                 <tr>
                     <td width="30%">Author</td>
                     <td width="70%">
-                        <select name="author">
+                        <select class="form-control" name="author">
                             <c:forEach items="${authors}" var="au">
                                 <option value="${au.ID}" 
                                         <c:choose>
@@ -89,7 +90,7 @@
                 <tr>
                     <td width="30%">Book Type</td>
                     <td width="70%">
-                        <select name="bookType">
+                        <select class="form-control" name="bookType">
                             <c:forEach items="${bookTypes}" var="typ">
                                 <option value="${typ.ID}" 
                                         <c:choose>
@@ -104,7 +105,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" value="Update"/>
+                        <input class="btn btn-default" type="submit" value="Update"/>
+                        <a href="Management?action=toAllBook"><input type="button" value="Cancel" class="btn btn-default"></a>
                     </td>
                 </tr>
             </table>     

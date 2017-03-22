@@ -73,6 +73,8 @@ public class Management extends HttpServlet {
         String action = request.getParameter("action");
         if (action.equals("toAllBook")) {
             allBooks(request, response);
+        } else if (action.equals("toAddBook")) {
+            addBook(request, response);
         } else if (action.equals("update")) {
             updateBook(request, response);
         } else if (action.equals("delete")) {
@@ -100,6 +102,10 @@ public class Management extends HttpServlet {
             checkLogin(request, response);
         } else if (action.equals("confirmUpdate")) {
             confirmUpdate(request, response);
+        } else if (action.equals("addBook")) {
+            confirmAddBook(request, response);
+        } else if (action.equals("confirmDelete")) {
+            confirmDelete(request, response);
         }
     }
 
@@ -189,8 +195,65 @@ public class Management extends HttpServlet {
         allBooks(request, response);
     }
 
-    private void deleteBook(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void addBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        BookControl control = new BookControl();
+        ArrayList<Author> authors = control.getAuthors();
+        ArrayList<Publisher> publishers = control.getPublishers();
+        ArrayList<BookType> bookTypes = control.getBookTypes();
+        request.setAttribute("publishers", publishers);
+        request.setAttribute("authors", authors);
+        request.setAttribute("bookTypes", bookTypes);
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/addBook.jsp");
+        dis.forward(request, response);
     }
+
+    private void confirmAddBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        BookControl bookControl = new BookControl();
+        Book book = new Book();
+        Author author = new Author();
+        author.setID(Integer.parseInt((String) request.getParameter("author")));
+        BookType type = new BookType();
+        type.setID(Integer.parseInt((String) request.getParameter("bookType")));
+        Publisher pub = new Publisher();
+        pub.setID(Integer.parseInt((String) request.getParameter("publisher")));
+        book.setAuthor(author);
+        book.setBookType(type);
+        book.setPublisher(pub);
+        book.setName((String) request.getParameter("name"));
+        book.setDescription((String) request.getParameter("description"));
+        book.setCost(Float.parseFloat((String) request.getParameter("cost")));
+        bookControl.addBook(book);
+        bookControl.closeDAO();
+        allBooks(request, response);
+    }
+
+    private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        BookControl control = new BookControl();
+        ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
+        ArrayList<Author> authors = control.getAuthors();
+        ArrayList<Publisher> publishers = control.getPublishers();
+        ArrayList<BookType> bookTypes = control.getBookTypes();
+        control.closeDAO();
+        request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
+        request.setAttribute("publishers", publishers);
+        request.setAttribute("authors", authors);
+        request.setAttribute("bookTypes", bookTypes);
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/deleteBook.jsp");
+        try {
+            dis.forward(request, response);
+        } catch (IOException ex) {
+            Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void confirmDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        BookControl bookControl = new BookControl();
+        Book book = bookControl.getBookById(Integer.parseInt((String) request.getParameter("bookID")));
+//        book.setID(Integer.parseInt((String) request.getParameter("bookID")));
+        bookControl.deleteBook(book);
+        bookControl.closeDAO();
+        allBooks(request, response);
+    }
+
 
 }

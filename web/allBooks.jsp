@@ -19,9 +19,9 @@
     </head>
     <body>
         <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="index.jsp">All Books</a></li>
-            <li><a href="addBook.jsp">Add Book</a></li>
-            <li><a href="search.jsp">Search</a></li>           
+            <li class="active"><a href="Management?action=toAllBook">All Books</a></li>
+            <li><a href="Management?action=toAddBook">Add Book</a></li>
+            <li><a href="Management?action=toSearch">Search</a></li>           
 
         </ul>
         <h3 align="center">All Books</h3>
