@@ -33,9 +33,8 @@ public class ServiceManagement extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws IOException if an I/O error occurs
      */
-    protected void login(HttpServletRequest request,HttpServletResponse response){
+    protected void login(HttpServletRequest request, HttpServletResponse response) {
         HumanControl control = new HumanControl();
         String json = request.getParameter("jsonaccount");
         Gson gson = new Gson();
@@ -48,28 +47,32 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    protected void addBook(HttpServletRequest request,HttpServletResponse response){
+
+    protected void addBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         String json = request.getParameter("jsonbook");
         Gson gson = new Gson();
-        Book book = gson.fromJson(json,Book.class);
+        Book book = gson.fromJson(json, Book.class);
         control.deleteBook(book);
     }
-    protected void deleteBook(HttpServletRequest request,HttpServletResponse response){
+
+    protected void deleteBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         String json = request.getParameter("jsonbook");
         Gson gson = new Gson();
-        Book book = gson.fromJson(json,Book.class);
+        Book book = gson.fromJson(json, Book.class);
         control.addBook(book);
     }
-    protected void updateBook(HttpServletRequest request,HttpServletResponse response){
+
+    protected void updateBook(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         String json = request.getParameter("jsonbook");
         Gson gson = new Gson();
-        Book book = gson.fromJson(json,Book.class);
+        Book book = gson.fromJson(json, Book.class);
         control.updateBook(book);
     }
-    protected void getBookByName(HttpServletRequest request,HttpServletResponse response){
+
+    protected void getBookByName(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
         String name = request.getParameter("nameofBook");
@@ -81,7 +84,8 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    protected void getBookById(HttpServletRequest request,HttpServletResponse response){
+
+    protected void getBookById(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
         String idofBook = request.getParameter("idofBook");
@@ -94,6 +98,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -121,25 +126,25 @@ public class ServiceManagement extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
+
         //viết chỗ xử lý json, trả về json vào đây
         String action = request.getParameter("action");
-        if(action.equals("login")){
+        if (action.equals("login")) {
             login(request, response);
         }
-        if(action.equals("addBook")){
+        if (action.equals("addBook")) {
             addBook(request, response);
         }
-        if(action.equals("updateBook")){
+        if (action.equals("updateBook")) {
             updateBook(request, response);
         }
-        if(action.equals("deleteBook")){
+        if (action.equals("deleteBook")) {
             deleteBook(request, response);
         }
-        if(action.equals("getBookById")){
+        if (action.equals("getBookById")) {
             getBookById(request, response);
         }
-        if(action.equals("getBookByName")){
+        if (action.equals("getBookByName")) {
             getBookByName(request, response);
         }
     }
