@@ -37,10 +37,8 @@ public class ServiceManagement extends HttpServlet {
     protected void login(HttpServletRequest request, HttpServletResponse response) {
         HumanControl control = new HumanControl();
         String json = request.getParameter("json");
-        System.out.println("json: " + json);
         Gson gson = new Gson();
         Account acc = gson.fromJson(json, Account.class);
-        System.out.println("Account: " + acc.getUsername() + " " + acc.getPassword());
         String jsonResult = "{result: \"" + control.login(acc) + "\"}";
         try {
             response.getWriter().write(jsonResult);
