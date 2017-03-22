@@ -11,7 +11,15 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
                     <file>${file.reference.KTTKDAO.jar}</file>
+=======
+                    <file>${file.reference.gson-2.6.2.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.KTTKControl.jar}</file>
+>>>>>>> remotes/origin/TienDuc
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
@@ -23,7 +31,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
                     <file>${file.reference.KTTKControl.jar}</file>
+=======
+                    <file>${libs.jstl.classpath}</file>
+>>>>>>> remotes/origin/TienDuc
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
