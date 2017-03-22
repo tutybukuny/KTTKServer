@@ -5,10 +5,11 @@
  */
 package Servlet;
 
-import Control.HumanControl;
-import Model.Account;
+import Control.*;
+import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -66,7 +67,14 @@ public class Management extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if (action.equals("toAllBook")) {
+            allBooks(request, response);
+        } else if (action.equals("update")) {
+            updateBook(request, response);
+        } else if (action.equals("delete")) {
+            deleteBook(request, response);
+        }
     }
 
     /**
@@ -111,19 +119,48 @@ public class Management extends HttpServlet {
         if (humanControl.login(acc)) {
             HttpSession session = request.getSession();
             session.setAttribute("account", acc);
-            dis = getServletContext().getRequestDispatcher("/userHome.jsp");
+            try {
+                allBooks(request, response);
+            } catch (IOException ex) {
+                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ServletException ex) {
+                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             dis = getServletContext().getRequestDispatcher("/index.jsp");
+            try {
+                dis.forward(request, response);
+            } catch (ServletException | IOException ex) {
+                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-        try {
-            dis.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
+
+    private void allBooks(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        BookControl bookControl = new BookControl();
+        ArrayList<Book> books = bookControl.getBooks();
+        bookControl.closeDAO();
+        request.setAttribute("books", books);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allBooks.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BookControl control = new BookControl();
+        ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
+        ArrayList<Author> authors = control.getAuthors();
+        ArrayList<Publisher> publishers = control.getPublishers();
+        request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
+        request.setAttribute("publishers", publishers);
+        request.setAttribute("authors", authors);
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/updateBook.jsp");
+        dis.forward(request, response);
+    }
+
+    private void deleteBook(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
