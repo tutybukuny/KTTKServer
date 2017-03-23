@@ -77,7 +77,7 @@
                         </div>
                         <div class="panel-footer">
                             <div class="form-actions right1" style="padding: ">
-                                <button type="button" class="btn btn-default">Cancel</button>
+                                <a href="allBooks.jsp"><button type="button" class="btn btn-default">Cancel</button></a>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </div>

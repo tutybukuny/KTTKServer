@@ -79,6 +79,8 @@ public class Management extends HttpServlet {
             updateBook(request, response);
         } else if (action.equals("delete")) {
             deleteBook(request, response);
+        } else if(action.equals("logout")){
+            logout(request, response);
         }
     }
 
@@ -131,13 +133,12 @@ public class Management extends HttpServlet {
 
         if (humanControl.checkLogin(acc)) {
             HttpSession session = request.getSession();
-            session.setAttribute("account", acc);
+            Human human = humanControl.getHumanByAccount(acc);
+            session.setAttribute("human", human);
             try {
                 allBooks(request, response);
-            } catch (IOException ex) {
-                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
-                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException | ServletException ex) {
+                ex.printStackTrace();
             }
 
         } else {
@@ -145,7 +146,7 @@ public class Management extends HttpServlet {
             try {
                 dis.forward(request, response);
             } catch (ServletException | IOException ex) {
-                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
 
@@ -155,7 +156,7 @@ public class Management extends HttpServlet {
         BookControl bookControl = new BookControl();
         ArrayList<Book> books = bookControl.getBooks();
         bookControl.closeDAO();
-        request.setAttribute("books", books);
+        request.getSession().setAttribute("books", books);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allBooks.jsp");
         dispatcher.forward(request, response);
     }
@@ -236,7 +237,7 @@ public class Management extends HttpServlet {
         try {
             dis.forward(request, response);
         } catch (IOException ex) {
-            Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -248,6 +249,18 @@ public class Management extends HttpServlet {
         bookControl.deleteBook(book);
         bookControl.closeDAO();
         allBooks(request, response);
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().removeAttribute("human");
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/index.jsp");
+        try {
+            dis.forward(request, response);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ServletException ex) {
+            ex.printStackTrace();
+        }
     }
 
 

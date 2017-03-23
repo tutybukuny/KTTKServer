@@ -22,17 +22,17 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="">Trang chủ</a></li> 
+                <li class="active"><a href="index.jsp">Trang chủ</a></li> 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
-                    <c:when test="${user.fullname!=null}">
-                        <li><a href="#">Chào ${user.fullname}</a></li>
-                        <li><a href="User?action=logout"><span class="glyphicon glyphicon-log-out"></span>Đăng xuất</a></li>
+                    <c:when test="${sessionScope.human!=null}">
+                        <li><a href="userHome.jsp">Chào ${sessionScope.human.name.firstName}</a></li>
+                        <li><a href="Management?action=logout"><span class="glyphicon glyphicon-log-out"></span>Đăng xuất</a></li>
                         </c:when>
                         <c:otherwise>
                         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
-                        <li><a href="/BTLLTM"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
+                        <li><a href="index.jsp"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
                         </c:otherwise>
                     </c:choose>
             </ul>

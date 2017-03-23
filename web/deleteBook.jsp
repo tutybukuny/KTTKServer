@@ -66,7 +66,7 @@
                         </div>
                         <div class="panel-footer">
                             <div class="form-actions right1" style="padding: ">
-                                <a href="index.jsp"><input type="button" value="Cancel" class="btn btn-default"></a>
+                                <a href="allBooks.jsp"><input type="button" value="Cancel" class="btn btn-default"></a>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </div>
                         </div>

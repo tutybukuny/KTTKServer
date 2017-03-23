@@ -49,8 +49,7 @@
                             <tbody>
                                 <%
 
-                                    ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("books");
-                                    session.setAttribute("books", books);
+                                    ArrayList<Book> books = (ArrayList<Book>) session.getAttribute("books");
                                     for (int i = 0; i < books.size(); i++) {
                                         Book book = books.get(i);
                                 %>
