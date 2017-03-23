@@ -106,6 +106,8 @@ public class Management extends HttpServlet {
             confirmAddBook(request, response);
         } else if (action.equals("confirmDelete")) {
             confirmDeleteBook(request, response);
+        } else if (action.equals("signup")) {
+            signup(request, response);
         }
     }
 
@@ -239,6 +241,57 @@ public class Management extends HttpServlet {
         }
     }
 
+    private void signup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HumanControl humanControl = new HumanControl();
+        String username = request.getParameter("username");
+        boolean check = humanControl.checkUsername(username);
+
+        Human human = new Human();
+        String password = request.getParameter("password");
+        String number = request.getParameter("number");
+        String street = request.getParameter("street");
+        String city = request.getParameter("city");
+        String county = "Vietnam";
+        String firstName = request.getParameter("firstname");
+        String lastName = request.getParameter("lastname");
+        String middleName = request.getParameter("middlename");
+        String mounth = request.getParameter("mounth");
+        int day = Integer.parseInt(request.getParameter("day"));
+        int year = Integer.parseInt(request.getParameter("year"));
+        String dis = request.getParameter("dis");
+        Address add = new Address();
+        add.setNumber(number);
+        add.setCity(city);
+        add.setCountry(county);
+        add.setStreet(street);
+        Name name = new Name();
+        name.setFirstName(firstName);
+        name.setLastName(lastName);
+        name.setMiddleName(middleName);
+        Birthday birthday = new Birthday();
+        birthday.setDay(day);
+        birthday.setMonth(mounth);
+        birthday.setYear(year);
+        Account acc = new Account();
+        acc.setUsername(username);
+        acc.setPassword(password);
+        human.setAcc(acc);
+        human.setAddress(add);
+        human.setBirthday(birthday);
+        human.setName(name);
+        human.setDiscriminator(dis);
+        if (check) {
+            humanControl.insertHuman(human);
+            humanControl.closeDAO();
+            allBooks(request, response);
+        } else {
+            request.setAttribute("human", human);
+            request.setAttribute("errorusername", "Tên đăng nhập đã  được sử dụng");
+            RequestDispatcher disp = getServletContext().getRequestDispatcher("/signup.jsp");
+            disp.forward(request, response);
+        }
+    }
+
     private void confirmDeleteBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         BookControl bookControl = new BookControl();
         int bookID = Integer.parseInt((String) request.getParameter("bookID"));
@@ -260,6 +313,10 @@ public class Management extends HttpServlet {
             ex.printStackTrace();
         }
     }
+<<<<<<< .mine
 
+=======
+
+>>>>>>> .theirs
 
 }

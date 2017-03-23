@@ -55,6 +55,26 @@ public class ServiceManagement extends HttpServlet {
         }
     }
     
+    protected void checkUsername(HttpServletRequest request, HttpServletResponse response){
+        HumanControl humanControl = new HumanControl();
+        String username = request.getParameter("username");
+        boolean check  = humanControl.checkUsername(username);
+        if(check){
+            try {
+                response.getWriter().write("true");
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            try {
+                response.getWriter().write("false");
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     protected void getBookByName(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
@@ -132,6 +152,10 @@ public class ServiceManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action.equals("login")) {
+            checkUsername(request, response);
+        }
     }
 
     /**
