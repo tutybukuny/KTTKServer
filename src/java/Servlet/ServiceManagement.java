@@ -9,6 +9,7 @@ import Control.BookControl;
 import Control.HumanControl;
 import Model.Account;
 import Model.Book;
+import Model.Human;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,13 @@ public class ServiceManagement extends HttpServlet {
         String json = request.getParameter("json");
         Gson gson = new Gson();
         Account acc = gson.fromJson(json, Account.class);
-        String jsonResult = "{result: \"" + control.login(acc) + "\"}";
+        Human human = control.getHumanByAccount(acc);
+        String jsonResult = "error";
+        
+        if (human != null) {
+            jsonResult = gson.toJson(human);
+        }
+        
         control.closeDAO();
         try {
             response.getWriter().write(jsonResult);
@@ -47,34 +54,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    protected void addBook(HttpServletRequest request, HttpServletResponse response) {
-        BookControl control = new BookControl();
-        String json = request.getParameter("json");
-        Gson gson = new Gson();
-        Book book = gson.fromJson(json, Book.class);
-        control.deleteBook(book);
-        control.closeDAO();
-    }
-
-    protected void deleteBook(HttpServletRequest request, HttpServletResponse response) {
-        BookControl control = new BookControl();
-        String json = request.getParameter("json");
-        Gson gson = new Gson();
-        Book book = gson.fromJson(json, Book.class);
-        control.addBook(book);
-        control.closeDAO();
-    }
-
-    protected void updateBook(HttpServletRequest request, HttpServletResponse response) {
-        BookControl control = new BookControl();
-        String json = request.getParameter("json");
-        Gson gson = new Gson();
-        Book book = gson.fromJson(json, Book.class);
-        control.updateBook(book);
-        control.closeDAO();
-    }
-
+    
     protected void getBookByName(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
@@ -88,7 +68,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     protected void getBookById(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
@@ -103,7 +83,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     protected void getBooks(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
@@ -115,7 +95,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     protected void getAuthors(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
@@ -127,7 +107,7 @@ public class ServiceManagement extends HttpServlet {
             Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     protected void getPublishers(HttpServletRequest request, HttpServletResponse response) {
         BookControl control = new BookControl();
         Gson gson = new Gson();
@@ -172,15 +152,6 @@ public class ServiceManagement extends HttpServlet {
         String action = request.getParameter("action");
         if (action.equals("login")) {
             login(request, response);
-        }
-        if (action.equals("addBook")) {
-            addBook(request, response);
-        }
-        if (action.equals("updateBook")) {
-            updateBook(request, response);
-        }
-        if (action.equals("deleteBook")) {
-            deleteBook(request, response);
         }
         if (action.equals("getBookById")) {
             getBookById(request, response);

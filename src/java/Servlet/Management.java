@@ -105,7 +105,7 @@ public class Management extends HttpServlet {
         } else if (action.equals("addBook")) {
             confirmAddBook(request, response);
         } else if (action.equals("confirmDelete")) {
-            confirmDelete(request, response);
+            confirmDeleteBook(request, response);
         }
     }
 
@@ -129,7 +129,7 @@ public class Management extends HttpServlet {
 
         RequestDispatcher dis;
 
-        if (humanControl.login(acc)) {
+        if (humanControl.checkLogin(acc)) {
             HttpSession session = request.getSession();
             session.setAttribute("account", acc);
             try {
@@ -246,7 +246,7 @@ public class Management extends HttpServlet {
         }
     }
 
-    private void confirmDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void confirmDeleteBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         BookControl bookControl = new BookControl();
         Book book = bookControl.getBookById(Integer.parseInt((String) request.getParameter("bookID")));
 //        book.setID(Integer.parseInt((String) request.getParameter("bookID")));
