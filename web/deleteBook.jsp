@@ -40,21 +40,18 @@
                         <input type="text" class="form-control" name="name" value="${book.name}" readonly="true"/>
                     </td> 
                 </tr>
-                <br>
                 <tr>
                     <td width="30%">Description</td>
                     <td width="70%">
                         <input type="text" class="form-control" name="description" value="${book.description}" readonly="true"/>
                     </td> 
                 </tr> 
-                <br>
                 <tr>
                     <td width="30%">Cost</td>
                     <td width="70%">
                         <input type="text" class="form-control" name="cost" value="${book.cost}" readonly="true"/>
                     </td> 
                 </tr> 
-                <br>
                 <tr>
                     <td width="30%">Cost</td>
                     <td width="70%">
@@ -76,7 +73,7 @@
                 <tr>
                     <td>
                         <input type="submit" class="btn btn-default" value="Delete"/>
-                        <a href="index.jsp"><input type="button" value="Cancel" class="btn btn-default"></a>
+                        <a href="Management?action=toAllBook"><input type="button" value="Cancel" class="btn btn-default"></a>
                     </td>
                 </tr>
             </table>     

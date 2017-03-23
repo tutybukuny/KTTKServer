@@ -40,21 +40,18 @@
                         <input type="text" class="form-control" name="name" value="${book.name}"/>
                     </td> 
                 </tr>
-                <br>
                 <tr>
                     <td width="30%">Description</td>
                     <td width="70%">
                         <input type="text" class="form-control" name="description" value="${book.description}"/>
                     </td> 
                 </tr> 
-                <br>
                 <tr>
                     <td width="30%">Cost</td>
                     <td width="70%">
                         <input type="text" class="form-control" name="cost" value="${book.cost}"/>
                     </td> 
                 </tr> 
-                <br>
                 <tr>
                     <td width="30%">Publisher</td>
                     <td width="70%">
