@@ -18,95 +18,91 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="Management?action=toAllBook">All Books</a></li>
-            <li><a href="Management?action=toAddBook">Add Book</a></li>
-            <li><a href="Management?action=toSearch">Search</a></li>           
-        </ul>
-        <h3 align="center">Update a book</h3>
-        <form method="POST" name = "UpdateB" action="/KTTKServer/Management" >
-            <input type="text" value="${book.ID}" name="bookID" hidden="true"/>
-            <input type="text" value="confirmUpdate" name="action" hidden="true"/>
-            <table align="center">
-                <tr>
-                    <td width="30%">ID</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="id" value="${book.ID}" readonly="true"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Name</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="name" value="${book.name}"/>
-                    </td> 
-                </tr>
-                <tr>
-                    <td width="30%">Description</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="description" value="${book.description}"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Cost</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="cost" value="${book.cost}"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Publisher</td>
-                    <td width="70%">
-                        <select class="form-control" name="publisher">
-                            <c:forEach items="${publishers}" var="pub">
-                                <option value="${pub.ID}" 
-                                        <c:choose>
-                                            <c:when test="${book.publisher.ID==pub.ID}">
-                                                selected="true"
-                                            </c:when>
-                                        </c:choose>
-                                        >${pub.name}</option>
-                            </c:forEach>
-                        </select>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Author</td>
-                    <td width="70%">
-                        <select class="form-control" name="author">
-                            <c:forEach items="${authors}" var="au">
-                                <option value="${au.ID}" 
-                                        <c:choose>
-                                            <c:when test="${book.author.ID==au.ID}">
-                                                selected="true"
-                                            </c:when>
-                                        </c:choose>
-                                        >${au.name}</option>
-                            </c:forEach>
-                        </select>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Book Type</td>
-                    <td width="70%">
-                        <select class="form-control" name="bookType">
-                            <c:forEach items="${bookTypes}" var="typ">
-                                <option value="${typ.ID}" 
-                                        <c:choose>
-                                            <c:when test="${book.bookType.ID==typ.ID}">
-                                                selected="true"
-                                            </c:when>
-                                        </c:choose>
-                                        >${typ.name}</option>
-                            </c:forEach>
-                        </select>
-                    </td> 
-                </tr>
-                <tr>
-                    <td>
-                        <input class="btn btn-default" type="submit" value="Update"/>
-                        <a href="Management?action=toAllBook"><input type="button" value="Cancel" class="btn btn-default"></a>
-                    </td>
-                </tr>
-            </table>     
-        </form>
+        <jsp:include page="content/header.jsp"></jsp:include>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sửa sách</div>
+                <div class="panel-body">
+                    <form action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
+                        <input type="text" value="${book.ID}" name="bookID" hidden="true"/>
+                        <input type="text" value="confirmUpdate" name="action" hidden="true"/>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Name</label>
+                                <div class="col-md-9">
+                                    <input name="name" type="text" value="${book.ID}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Description</label>
+                                <div class="col-md-9">
+                                    <input name="description" type="text" value="${book.description}" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Cost</label>
+                                <div class="col-md-9">
+                                    <input name="cost" type="text" value="${book.cost}" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Publisher</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="publisher">
+                                        <c:forEach items="${publishers}" var="pub">
+                                            <option value="${pub.ID}" 
+                                                    <c:choose>
+                                                        <c:when test="${book.publisher.ID==pub.ID}">
+                                                            selected="true"
+                                                        </c:when>
+                                                    </c:choose>
+                                                    >${pub.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Author</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="author">
+                                        <c:forEach items="${authors}" var="au">
+                                            <option value="${au.ID}" 
+                                                    <c:choose>
+                                                        <c:when test="${book.author.ID==au.ID}">
+                                                            selected="true"
+                                                        </c:when>
+                                                    </c:choose>
+                                                    >${au.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Book Type</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="bookType">
+                                        <c:forEach items="${bookTypes}" var="typ">
+                                            <option value="${typ.ID}" 
+                                                    <c:choose>
+                                                        <c:when test="${book.bookType.ID==typ.ID}">
+                                                            selected="true"
+                                                        </c:when>
+                                                    </c:choose>
+                                                    >${typ.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-actions right1" style="padding: ">
+                                <a href="Management?action=toAllBook"><input type="button" value="Cancel" class="btn btn-default"></a>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -7,6 +7,7 @@
 <%@page import="Model.Account"%>
 <%@page import="Control.HumanControl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,24 +16,21 @@
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
         <script src="bootstrap/js/jquery-2.2.3.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <h2 align="center">Log In</h2><br>
-        <table align="center">
-            <tr>
-                <td width="100%">
-                    <form method="POST" action="Management">
-                        <input type="text" value="login" name="action" hidden="true">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Name...." name="username">
-                        </div><br>
-                        <div class="input-group">
-                            <input type="password" class="form-control" placeholder="Password" name="password">
-                        </div><br>
-                        <input type="submit" class="btn btn-default" value="Log In">
-                        <input type="reset" class="btn btn-default" value="Reset">
-                    </form>
-                    <p></td> </tr> </table>
+        <jsp:include page="content/header.jsp"></jsp:include>
+        <div class="login-page">
+            <div class="form">
+                <form action="Management" method="POST" class="login-form">
+                    <input type="text" name="username" placeholder="username"/>
+                    <input type="password" name="password" placeholder="password"/>
+                    <input type="hidden" name="action" value="login"/>
+                    <button type="submit">login</button>
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
 

@@ -230,14 +230,8 @@ public class Management extends HttpServlet {
     private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         BookControl control = new BookControl();
         ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
-        ArrayList<Author> authors = control.getAuthors();
-        ArrayList<Publisher> publishers = control.getPublishers();
-        ArrayList<BookType> bookTypes = control.getBookTypes();
         control.closeDAO();
         request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
-        request.setAttribute("publishers", publishers);
-        request.setAttribute("authors", authors);
-        request.setAttribute("bookTypes", bookTypes);
         RequestDispatcher dis = getServletContext().getRequestDispatcher("/deleteBook.jsp");
         try {
             dis.forward(request, response);

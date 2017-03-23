@@ -18,65 +18,61 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="Management?action=toAllBook">All Books</a></li>
-            <li><a href="Management?action=toAddBook">Add Book</a></li>
-            <li><a href="Management?action=toSearch">Search</a></li>           
-        </ul>
-        <h3 align="center">Are you sure want to delete this book?</h3>
-        <form method="POST" name = "Delete" action="/KTTKServer/Management" >
-            <input type="text" value="${book.ID}" name="bookID" hidden="true"/>
-            <input type="text" value="confirmDelete" name="action" hidden="true"/>
-            <table align="center">
-                <tr>
-                    <td width="30%">ID</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="id" value="${book.ID}" readonly="true"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Name</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="name" value="${book.name}" readonly="true"/>
-                    </td> 
-                </tr>
-                <tr>
-                    <td width="30%">Description</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="description" value="${book.description}" readonly="true"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Cost</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="cost" value="${book.cost}" readonly="true"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Cost</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="cost" value="${book.publisher.name}" readonly="true"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td width="30%">Cost</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="cost" value="${book.author.name}" readonly="true"/>
-                    </td> 
-                </tr>  
-                <tr>
-                    <td width="30%">Cost</td>
-                    <td width="70%">
-                        <input type="text" class="form-control" name="cost" value="${book.bookType.name}" readonly="true"/>
-                    </td> 
-                </tr> 
-                <tr>
-                    <td>
-                        <input type="submit" class="btn btn-default" value="Delete"/>
-                        <a href="Management?action=toAllBook"><input type="button" value="Cancel" class="btn btn-default"></a>
-                    </td>
-                </tr>
-            </table>     
-        </form>
+        <jsp:include page="content/header.jsp"></jsp:include>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sửa sách</div>
+                <div class="panel-body">
+                    <form action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
+                        <input type="text" value="${book.ID}" name="bookID" hidden="true"/>
+                        <input type="text" value="confirmDelete" name="action" hidden="true"/>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Name</label>
+                                <div class="col-md-9">
+                                    <input name="name" type="text" value="${book.ID}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Description</label>
+                                <div class="col-md-9">
+                                    <input name="description" type="text" value="${book.description}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Cost</label>
+                                <div class="col-md-9">
+                                    <input name="cost" type="text" value="${book.cost}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Publisher</label>
+                                <div class="col-md-9">
+                                    <input name="cost" type="text" value="${book.publisher.name}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Author</label>
+                                <div class="col-md-9">
+                                    <input name="cost" type="text" value="${book.author.name}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">BookType</label>
+                                <div class="col-md-9">
+                                    <input name="cost" type="text" value="${book.bookType.name}" readonly="true" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-actions right1" style="padding: ">
+                                <a href="index.jsp"><input type="button" value="Cancel" class="btn btn-default"></a>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
