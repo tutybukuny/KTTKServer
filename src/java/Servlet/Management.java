@@ -242,8 +242,9 @@ public class Management extends HttpServlet {
 
     private void confirmDeleteBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         BookControl bookControl = new BookControl();
-        Book book = bookControl.getBookById(Integer.parseInt((String) request.getParameter("bookID")));
-//        book.setID(Integer.parseInt((String) request.getParameter("bookID")));
+        int bookID = Integer.parseInt((String) request.getParameter("bookID"));
+        Book book = new Book();
+        book.setID(bookID);
         bookControl.deleteBook(book);
         bookControl.closeDAO();
         allBooks(request, response);
