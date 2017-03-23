@@ -18,11 +18,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">BookStore</a>
+            <a class="navbar-brand" href="Management?action=toAllBook">BookStore</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="">Trang chủ</a></li> 
+                <li class="active"><a href="Management?action=toAllBook">Trang chủ</a></li> 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
