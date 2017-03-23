@@ -77,7 +77,7 @@ public class Management extends HttpServlet {
             updateBook(request, response);
         } else if (action.equals("delete")) {
             deleteBook(request, response);
-        } else if(action.equals("logout")){
+        } else if (action.equals("logout")) {
             logout(request, response);
         }
     }
@@ -242,7 +242,6 @@ public class Management extends HttpServlet {
     }
 
     private void signup(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HumanControl humanControl = new HumanControl();
         String username = request.getParameter("username");
         boolean check = humanControl.checkUsername(username);
 
@@ -282,7 +281,8 @@ public class Management extends HttpServlet {
         human.setDiscriminator(dis);
         if (check) {
             humanControl.insertHuman(human);
-            humanControl.closeDAO();
+            human = humanControl.getHumanByAccount(acc);
+            request.getSession().setAttribute("human", human);
             allBooks(request, response);
         } else {
             request.setAttribute("human", human);
@@ -313,10 +313,5 @@ public class Management extends HttpServlet {
             ex.printStackTrace();
         }
     }
-<<<<<<< .mine
-
-=======
-
->>>>>>> .theirs
 
 }
