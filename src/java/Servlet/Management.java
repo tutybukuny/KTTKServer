@@ -68,6 +68,12 @@ public class Management extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        if (request.getSession().getAttribute("human") == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
         String action = request.getParameter("action");
         if (action.equals("toAllBook")) {
             allBooks(request, response);
@@ -100,14 +106,21 @@ public class Management extends HttpServlet {
 
         if (action.equals("login")) {
             checkLogin(request, response);
-        } else if (action.equals("confirmUpdate")) {
+        } else if (action.equals("signup")) {
+            signup(request, response);
+        }
+
+        if (request.getSession().getAttribute("human") == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
+        if (action.equals("confirmUpdate")) {
             confirmUpdate(request, response);
         } else if (action.equals("addBook")) {
             confirmAddBook(request, response);
         } else if (action.equals("confirmDelete")) {
             confirmDeleteBook(request, response);
-        } else if (action.equals("signup")) {
-            signup(request, response);
         }
     }
 

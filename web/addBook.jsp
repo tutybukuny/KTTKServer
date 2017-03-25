@@ -20,7 +20,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Thêm sách</div>
                 <div class="panel-body">
-                    <form action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
+                    <form action="Management" method="POST" class="form-horizontal" role="form">
                         <input type="text" value="addBook" name="action" hidden="true"/>
                         <div class="form-body">
                             <div class="form-group">
