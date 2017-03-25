@@ -16,7 +16,7 @@
     </head>
         <jsp:include page="content/header.jsp"></jsp:include>
         <div class="container">
-            <div class="panel panel-primary">
+            <div class="panel panel-danger">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-10" style="padding-top: 5px">

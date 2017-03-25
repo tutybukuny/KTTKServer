@@ -17,7 +17,7 @@
     <body>
         <jsp:include page="content/header.jsp"></jsp:include>
             <div class="container">
-                <div class="panel panel-primary">
+                <div class="panel panel-danger">
                     <div class="panel-heading">Đăng ký</div>
                     <div class="panel-body">
                         <form id="formsignup" action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
