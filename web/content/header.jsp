@@ -41,16 +41,20 @@
 
 <ul>
     <li><a style="font-size: medium" href="Management?action=toAllBook">BookStore</a></li>
-    <li><a href="index.jsp">Trang chủ</a></li>
+    <li><a href="index.jsp">Home</a></li>
+    <li><a href="PublisherManagement?action=toAllPub">Publisher</a></li>
+    <li><a href="AuthorManagement?action=toAllAuthor">Author</a></li>
+    <li><a href="BookTypeManagement?action=toAllType">Book Type</a></li>
+    
         <c:choose>
             <c:when test="${sessionScope.human!=null}">
-
-            <li style="float:  right"><a href="Management?action=logout"><span class="glyphicon glyphicon-log-out"></span>Đăng xuất</a></li>
-            <li style="float:  right"><a href="userHome.jsp">Chào ${sessionScope.human.name.firstName}</a></li>
+            <li style="float:  right"><a href="Management?action=logout"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+            <li style="float:  right"><a href="userHome.jsp">Hi ${sessionScope.human.name.firstName}</a></li>
             </c:when>
             <c:otherwise>
             <li  style="float:  right"><a href="signup.jsp"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
             <li  style="float:  right"><a href="index.jsp"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
+            
             </c:otherwise>
         </c:choose>
 </ul>
