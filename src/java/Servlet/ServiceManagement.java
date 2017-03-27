@@ -51,26 +51,25 @@ public class ServiceManagement extends HttpServlet {
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
-            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
-    protected void checkUsername(HttpServletRequest request, HttpServletResponse response){
+    protected void checkUsername(HttpServletRequest request, HttpServletResponse response) {
         HumanControl humanControl = new HumanControl();
         String username = request.getParameter("username");
-        boolean check  = humanControl.checkUsername(username);
-        if(check){
+        boolean check = humanControl.checkUsername(username);
+        if (check) {
             try {
                 response.getWriter().write("true");
             } catch (IOException ex) {
-                Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
-        }
-        else{
+        } else {
             try {
                 response.getWriter().write("false");
             } catch (IOException ex) {
-                Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
     }
@@ -85,7 +84,7 @@ public class ServiceManagement extends HttpServlet {
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
-            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -100,7 +99,7 @@ public class ServiceManagement extends HttpServlet {
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
-            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -112,7 +111,7 @@ public class ServiceManagement extends HttpServlet {
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
-            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -124,7 +123,7 @@ public class ServiceManagement extends HttpServlet {
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
-            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -136,7 +135,31 @@ public class ServiceManagement extends HttpServlet {
         try {
             response.getWriter().write(jsonResult);
         } catch (IOException ex) {
-            Logger.getLogger(ServiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+    }
+    
+    protected void signup(HttpServletRequest request, HttpServletResponse response) {
+        String json = request.getParameter("json");
+        Human human = new Gson().fromJson(json, Human.class);
+        HumanControl humanControl = new HumanControl();
+        String username = human.getAcc().getUsername();
+        boolean check = humanControl.checkUsername(username);
+        String result;
+        if (check) {
+            humanControl.insertHuman(human);
+            Account acc = human.getAcc();
+            human = humanControl.getHumanByAccount(acc);
+            
+            result = new Gson().toJson(human);
+        } else {
+            result = "{error: false}";
+        }
+        
+        try {
+            response.getWriter().write(result);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 

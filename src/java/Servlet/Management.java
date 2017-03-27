@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 public class Management extends HttpServlet {
 
     private HumanControl humanControl = new HumanControl();
+    private BookControl bookControl = new BookControl();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -121,6 +122,8 @@ public class Management extends HttpServlet {
             confirmAddBook(request, response);
         } else if (action.equals("confirmDelete")) {
             confirmDeleteBook(request, response);
+        } else if(action.equals("addAuthor")){
+            addAuthor(request, response);
         }
     }
 
@@ -166,21 +169,17 @@ public class Management extends HttpServlet {
     }
 
     private void allBooks(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        BookControl bookControl = new BookControl();
         ArrayList<Book> books = bookControl.getBooks();
-        bookControl.closeDAO();
         request.getSession().setAttribute("books", books);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allBooks.jsp");
         dispatcher.forward(request, response);
     }
 
     private void updateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BookControl control = new BookControl();
         ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
-        ArrayList<Author> authors = control.getAuthors();
-        ArrayList<Publisher> publishers = control.getPublishers();
-        ArrayList<BookType> bookTypes = control.getBookTypes();
-        control.closeDAO();
+        ArrayList<Author> authors = bookControl.getAuthors();
+        ArrayList<Publisher> publishers = bookControl.getPublishers();
+        ArrayList<BookType> bookTypes = bookControl.getBookTypes();
         request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
         request.setAttribute("publishers", publishers);
         request.setAttribute("authors", authors);
@@ -190,7 +189,6 @@ public class Management extends HttpServlet {
     }
 
     private void confirmUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BookControl bookControl = new BookControl();
         Book book = bookControl.getBookById(Integer.parseInt((String) request.getParameter("bookID")));
         Author author = new Author();
         author.setID(Integer.parseInt((String) request.getParameter("author")));
@@ -205,15 +203,13 @@ public class Management extends HttpServlet {
         book.setDescription((String) request.getParameter("description"));
         book.setCost(Float.parseFloat((String) request.getParameter("cost")));
         bookControl.updateBook(book);
-        bookControl.closeDAO();
         allBooks(request, response);
     }
 
     private void addBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        BookControl control = new BookControl();
-        ArrayList<Author> authors = control.getAuthors();
-        ArrayList<Publisher> publishers = control.getPublishers();
-        ArrayList<BookType> bookTypes = control.getBookTypes();
+        ArrayList<Author> authors = bookControl.getAuthors();
+        ArrayList<Publisher> publishers = bookControl.getPublishers();
+        ArrayList<BookType> bookTypes = bookControl.getBookTypes();
         request.setAttribute("publishers", publishers);
         request.setAttribute("authors", authors);
         request.setAttribute("bookTypes", bookTypes);
@@ -222,7 +218,6 @@ public class Management extends HttpServlet {
     }
 
     private void confirmAddBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        BookControl bookControl = new BookControl();
         Book book = new Book();
         Author author = new Author();
         author.setID(Integer.parseInt((String) request.getParameter("author")));
@@ -237,14 +232,11 @@ public class Management extends HttpServlet {
         book.setDescription((String) request.getParameter("description"));
         book.setCost(Float.parseFloat((String) request.getParameter("cost")));
         bookControl.addBook(book);
-        bookControl.closeDAO();
         allBooks(request, response);
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        BookControl control = new BookControl();
         ArrayList<Book> books = (ArrayList<Book>) request.getSession().getAttribute("books");
-        control.closeDAO();
         request.setAttribute("book", books.get(Integer.parseInt(request.getParameter("index"))));
         RequestDispatcher dis = getServletContext().getRequestDispatcher("/deleteBook.jsp");
         try {
@@ -306,12 +298,10 @@ public class Management extends HttpServlet {
     }
 
     private void confirmDeleteBook(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        BookControl bookControl = new BookControl();
         int bookID = Integer.parseInt((String) request.getParameter("bookID"));
         Book book = new Book();
         book.setID(bookID);
         bookControl.deleteBook(book);
-        bookControl.closeDAO();
         allBooks(request, response);
     }
 
@@ -320,11 +310,26 @@ public class Management extends HttpServlet {
         RequestDispatcher dis = getServletContext().getRequestDispatcher("/index.jsp");
         try {
             dis.forward(request, response);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ServletException ex) {
+        } catch (IOException | ServletException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void addAuthor(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        Author author = new Author();
+        author.setDescription(description);
+        author.setName(name);
+        
+        bookControl.insertAuthor(author);
+    }
+    
+    private void allAuthors(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ArrayList<Author> authors = bookControl.getAuthors();
+        request.getSession().setAttribute("authors", authors);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allBooks.jsp");
+        dispatcher.forward(request, response);
     }
 
 }
