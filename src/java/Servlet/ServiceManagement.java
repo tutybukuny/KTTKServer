@@ -215,6 +215,9 @@ public class ServiceManagement extends HttpServlet {
         if (action.equals("getPublishers")) {
             getPublishers(request, response);
         }
+        if(action.equals("sigup")){
+            signup(request, response);
+        }
     }
 
     /**
