@@ -310,9 +310,7 @@ public class Management extends HttpServlet {
         RequestDispatcher dis = getServletContext().getRequestDispatcher("/index.jsp");
         try {
             dis.forward(request, response);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ServletException ex) {
+        } catch (IOException | ServletException ex) {
             ex.printStackTrace();
         }
     }
