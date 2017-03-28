@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author huutien
+ * @author NgocThien
  */
 @WebServlet(name = "ServiceManagement", urlPatterns = {"/ServiceManagement"})
 public class ServiceManagement extends HttpServlet {
