@@ -18,11 +18,11 @@
         <jsp:include page="content/header.jsp"></jsp:include>
         <div class="container">
             <div class="panel panel-danger">
-                <div class="panel-heading">Sửa sách</div>
+                <div class="panel-heading">Update a book</div>
                 <div class="panel-body">
                     <form action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
                         <input type="text" value="${book.ID}" name="bookID" hidden="true"/>
-                        <input type="text" value="confirmUpdate" name="action" hidden="true"/>
+                        <input type="text" value="confirmUpdateBook" name="action" hidden="true"/>
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>

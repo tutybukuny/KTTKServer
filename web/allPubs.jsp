@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>All Books</title>
+        <title>All Publishers</title>
     </head>
         <jsp:include page="content/header.jsp"></jsp:include>
         <div class="container">
@@ -20,10 +20,10 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-10" style="padding-top: 5px">
-                            <p>All Books</p>
+                            <p>List Publishers</p>
                         </div>
                         <div class="col-md-1">
-                            <a href="Management?action=toAddBook" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
+                            <a href="Management?action=toAddPub" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
                         </div>
                     </div>
                 </div>
@@ -35,10 +35,6 @@
                                     <td><b>ID</b></td>
                                     <td><b>Name</b></td>
                                     <td><b>Description</b></td>
-                                    <td><b>Cost</b></td>
-                                    <td><b>Publisher</b></td>
-                                    <td><b>Author</b></td>
-                                    <td><b>Type</b></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -46,24 +42,20 @@
                             <tbody>
                                 <%
 
-                                    ArrayList<Book> books = (ArrayList<Book>) session.getAttribute("books");
-                                    for (int i = 0; i < books.size(); i++) {
-                                        Book book = books.get(i);
+                                    ArrayList<Publisher> publishers = (ArrayList<Publisher>) session.getAttribute("publishers");
+                                    for (int i = 0; i < publishers.size(); i++) {
+                                        Publisher publisher = publishers.get(i);
                                 %>
                                 <tr>
 
-                                    <td><%=book.getID()%></td> 
-                                    <td><%=book.getName()%></td>
-                                    <td><%=book.getDescription()%></td>
-                                    <td><%=book.getCost()%></td>
-                                    <td><%=book.getPublisher().getName()%></td>
-                                    <td><%=book.getAuthor().getName()%></td>
-                                    <td><%=book.getBookType().getName()%></td>
+                                    <td><%=publisher.getID()%></td> 
+                                    <td><%=publisher.getName()%></td>
+                                    <td><%=publisher.getDescription()%></td>
                                     <td>
-                                        <a href="/KTTKServer/Management?index=<%=i%>&action=updateBook" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=updatePub" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                     </td>
                                     <td>
-                                        <a href="/KTTKServer/Management?index=<%=i%>&action=deleteBook" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=deletePub" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     </td>
                                 </tr>
                                 <%
