@@ -20,7 +20,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-10" style="padding-top: 5px">
-                            <p>List Books</p>
+                            <p>All Books</p>
                         </div>
                         <div class="col-md-1">
                             <a href="Management?action=toAddBook" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
@@ -60,10 +60,10 @@
                                     <td><%=book.getAuthor().getName()%></td>
                                     <td><%=book.getBookType().getName()%></td>
                                     <td>
-                                        <a href="/KTTKServer/Management?index=<%=i%>&action=update" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=updateBook" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                     </td>
                                     <td>
-                                        <a href="/KTTKServer/Management?index=<%=i%>&action=delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=deleteBook" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     </td>
                                 </tr>
                                 <%

@@ -20,9 +20,9 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">Delete author</div>
                 <div class="panel-body">
-                    <form action="/KTTKServer/AuthorManagement" method="POST" class="form-horizontal" role="form">
+                    <form action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
                         <input type="text" value="${author.ID}" name="authorID" hidden="true"/>
-                        <input type="text" value="confirmDelete" name="action" hidden="true"/>
+                        <input type="text" value="confirmDeleteAuthor" name="action" hidden="true"/>
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
@@ -41,7 +41,7 @@
                         <div class="panel-footer">
                             <div class="form-actions right1" style="padding: ">                    
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                                <a href="AuthorManagement?action=toAllAuthor"><input type="button" value="Cancel" class="btn btn-default"></a>
+                                <a href="Management?action=toAllAuthor"><input type="button" value="Cancel" class="btn btn-default"></a>
                             </div>
                         </div>
                     </form>

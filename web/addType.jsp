@@ -20,7 +20,7 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">Add new book type</div>
                 <div class="panel-body">
-                    <form action="BookTypeManagement" method="POST" class="form-horizontal" role="form">
+                    <form action="Management" method="POST" class="form-horizontal" role="form">
                         <input type="text" value="addType" name="action" hidden="true"/>
                         <div class="form-body">
                             <div class="form-group">
@@ -38,7 +38,7 @@
                         </div>
                         <div class="panel-footer">
                             <div class="form-actions right1" style="padding: ">
-                                <a href="BookTypeManagement?action=toAllType"><button type="button" class="btn btn-default">Cancel</button></a>
+                                <a href="Management?action=toAllType"><button type="button" class="btn btn-default">Cancel</button></a>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </div>

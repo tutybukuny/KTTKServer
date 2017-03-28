@@ -20,9 +20,9 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading">Update Book Type</div>
                     <div class="panel-body">
-                        <form action="/KTTKServer/BookTypeManagement" method="POST" class="form-horizontal" role="form">
+                        <form action="/KTTKServer/Management" method="POST" class="form-horizontal" role="form">
                             <input type="text" value="${bookType.ID}" name="bookTypeID" hidden="true"/>
-                        <input type="text" value="confirmUpdate" name="action" hidden="true"/>
+                        <input type="text" value="confirmUpdateType" name="action" hidden="true"/>
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
@@ -39,7 +39,7 @@
                             <div class="panel-footer">
                                 <div class="form-actions right1" style="padding: ">
                                     <button type="submit" class="btn btn-success">Update</button>
-                                    <a href="BookTypeManagement?action=toAllType"><input type="button" value="Cancel" class="btn btn-default"></a>
+                                    <a href="Management?action=toAllType"><input type="button" value="Cancel" class="btn btn-default"></a>
                                     
                                 </div>
                             </div>

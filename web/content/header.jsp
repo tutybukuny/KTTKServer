@@ -42,9 +42,9 @@
 <ul>
     <li><a style="font-size: medium" href="Management?action=toAllBook">BookStore</a></li>
     <li><a href="index.jsp">Home</a></li>
-    <li><a href="PublisherManagement?action=toAllPub">Publisher</a></li>
-    <li><a href="AuthorManagement?action=toAllAuthor">Author</a></li>
-    <li><a href="BookTypeManagement?action=toAllType">Book Type</a></li>
+    <li><a href="Management?action=toAllPub">Publisher</a></li>
+    <li><a href="Management?action=toAllAuthor">Author</a></li>
+    <li><a href="Management?action=toAllType">Book Type</a></li>
     
         <c:choose>
             <c:when test="${sessionScope.human!=null}">

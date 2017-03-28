@@ -80,12 +80,36 @@ public class Management extends HttpServlet {
             allBooks(request, response);
         } else if (action.equals("toAddBook")) {
             addBook(request, response);
-        } else if (action.equals("update")) {
+        } else if (action.equals("updateBook")) {
             updateBook(request, response);
-        } else if (action.equals("delete")) {
+        } else if (action.equals("deleteBook")) {
             deleteBook(request, response);
         } else if (action.equals("logout")) {
             logout(request, response);
+        } else if (action.equals("toAllAuthor")) {
+            allAuthors(request, response);
+        } else if (action.equals("toAddAuthor")) {
+            addAuthor(request, response);
+        } else if (action.equals("updateAuthor")) {
+            updateAuthor(request, response);
+        } else if (action.equals("deleteAuthor")) {
+            deleteAuthor(request, response);
+        } else if (action.equals("toAllPub")) {
+            allPublishers(request, response);
+        } else if (action.equals("toAddPub")) {
+            addPublisher(request, response);
+        } else if (action.equals("updatePub")) {
+            updatePublisher(request, response);
+        } else if (action.equals("deletePub")) {
+            deletePublisher(request, response);
+        } else if (action.equals("toAllType")) {
+            allBookTypes(request, response);
+        } else if (action.equals("toAddType")) {
+            addBookType(request, response);
+        } else if (action.equals("updateType")) {
+            updateBookType(request, response);
+        } else if (action.equals("deleteType")) {
+            deleteBookType(request, response);
         }
     }
 
@@ -116,14 +140,30 @@ public class Management extends HttpServlet {
             return;
         }
 
-        if (action.equals("confirmUpdate")) {
-            confirmUpdate(request, response);
+        if (action.equals("confirmUpdateBook")) {
+            confirmUpdateBook(request, response);
         } else if (action.equals("addBook")) {
             confirmAddBook(request, response);
-        } else if (action.equals("confirmDelete")) {
+        } else if (action.equals("confirmDeleteBook")) {
             confirmDeleteBook(request, response);
-        } else if(action.equals("addAuthor")){
-            addAuthor(request, response);
+        } else if (action.equals("confirmUpdateAuthor")) {
+            confirmUpdateAuthor(request, response);
+        } else if (action.equals("addAuthor")) {
+            confirmAddAuthor(request, response);
+        } else if (action.equals("confirmDeleteAuthor")) {
+            confirmDeleteAuthor(request, response);
+        } else  if (action.equals("confirmUpdatePub")) {
+            confirmUpdatePublisher(request, response);
+        } else if (action.equals("addPub")) {
+            confirmAddPublisher(request, response);
+        } else if (action.equals("confirmDeletePub")) {
+            confirmDeletePublisher(request, response);
+        } else if (action.equals("confirmUpdateType")) {
+            confirmUpdateBookType(request, response);
+        } else if (action.equals("addType")) {
+            confirmAddBookType(request, response);
+        } else if (action.equals("confirmDeleteType")) {
+            confirmDeleteBookType(request, response);
         }
     }
 
@@ -188,7 +228,7 @@ public class Management extends HttpServlet {
         dis.forward(request, response);
     }
 
-    private void confirmUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void confirmUpdateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Book book = bookControl.getBookById(Integer.parseInt((String) request.getParameter("bookID")));
         Author author = new Author();
         author.setID(Integer.parseInt((String) request.getParameter("author")));
@@ -317,21 +357,173 @@ public class Management extends HttpServlet {
         }
     }
 
-    private void addAuthor(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        Author author = new Author();
-        author.setDescription(description);
-        author.setName(name);
-        
-        bookControl.insertAuthor(author);
-    }
+    
+    // AUTHOR
     
     private void allAuthors(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ArrayList<Author> authors = bookControl.getAuthors();
         request.getSession().setAttribute("authors", authors);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allBooks.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allAuthors.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void updateAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Author> authors = (ArrayList<Author>) request.getSession().getAttribute("authors");
+        request.setAttribute("author", authors.get(Integer.parseInt(request.getParameter("index"))));
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/updateAuthor.jsp");
+        dis.forward(request, response);
+    }
+
+    private void confirmUpdateAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Author author = bookControl.getAuthorById(Integer.parseInt((String) request.getParameter("authorID")));
+        author.setName((String) request.getParameter("name"));
+        author.setDescription((String) request.getParameter("description"));
+        bookControl.updateAuthor(author);
+        allAuthors(request, response);
+    }
+
+    private void addAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/addAuthor.jsp");
+        dis.forward(request, response);
+    }
+
+    private void confirmAddAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Author author = new Author();
+        author.setName((String) request.getParameter("name"));
+        author.setDescription((String) request.getParameter("description"));
+        bookControl.insertAuthor(author);
+        allAuthors(request, response);
+    }
+
+    private void deleteAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        ArrayList<Author> authors = (ArrayList<Author>) request.getSession().getAttribute("authors");
+        request.setAttribute("author", authors.get(Integer.parseInt(request.getParameter("index"))));
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/deleteAuthor.jsp");
+        try {
+            dis.forward(request, response);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void confirmDeleteAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int authorID = Integer.parseInt((String) request.getParameter("authorID"));
+        Author author = new Author();
+        author.setID(authorID);
+        bookControl.deleteAuthor(author);
+        allAuthors(request, response);
+    }
+
+    // PUBLISHER
+    
+        private void allPublishers(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ArrayList<Publisher> publishers = bookControl.getPublishers();
+        request.getSession().setAttribute("publishers", publishers);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allPubs.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updatePublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Publisher> publishers = (ArrayList<Publisher>) request.getSession().getAttribute("publishers");
+        request.setAttribute("publisher", publishers.get(Integer.parseInt(request.getParameter("index"))));
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/updatePub.jsp");
+        dis.forward(request, response);
+    }
+
+    private void confirmUpdatePublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Publisher publisher = bookControl.getPublisherById(Integer.parseInt((String) request.getParameter("publisherID")));
+        publisher.setName((String) request.getParameter("name"));
+        publisher.setDescription((String) request.getParameter("description"));
+        bookControl.updatePublisher(publisher);
+        allPublishers(request, response);
+    }
+
+    private void addPublisher(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/addPub.jsp");
+        dis.forward(request, response);
+    }
+
+    private void confirmAddPublisher(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Publisher publisher = new Publisher();
+        publisher.setName((String) request.getParameter("name"));
+        publisher.setDescription((String) request.getParameter("description"));
+        bookControl.insertPublisher(publisher);
+        allPublishers(request, response);
+    }
+
+    private void deletePublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        ArrayList<Publisher> publishers = (ArrayList<Publisher>) request.getSession().getAttribute("publishers");
+        request.setAttribute("publisher", publishers.get(Integer.parseInt(request.getParameter("index"))));
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/deletePub.jsp");
+        try {
+            dis.forward(request, response);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void confirmDeletePublisher(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int publisherID = Integer.parseInt((String) request.getParameter("publisherID"));
+        Publisher publisher = new Publisher();
+        publisher.setID(publisherID);
+        bookControl.deletePublisher(publisher);
+        allPublishers(request, response);
+    }
+
+    // BOOK TYPE   
+    
+        private void allBookTypes(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ArrayList<BookType> bookTypes = bookControl.getBookTypes();
+        request.getSession().setAttribute("bookTypes", bookTypes);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/allTypes.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateBookType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<BookType> bookTypes = (ArrayList<BookType>) request.getSession().getAttribute("bookTypes");
+        request.setAttribute("bookType", bookTypes.get(Integer.parseInt(request.getParameter("index"))));
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/updateType.jsp");
+        dis.forward(request, response);
+    }
+
+    private void confirmUpdateBookType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BookType bookType = bookControl.getBookTypeById(Integer.parseInt((String) request.getParameter("bookTypeID")));
+        bookType.setName((String) request.getParameter("name"));
+        bookType.setDescription((String) request.getParameter("description"));
+        bookControl.updateBookType(bookType);
+        allBookTypes(request, response);
+    }
+
+    private void addBookType(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/addType.jsp");
+        dis.forward(request, response);
+    }
+
+    private void confirmAddBookType(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        BookType bookType = new BookType();
+        bookType.setName((String) request.getParameter("name"));
+        bookType.setDescription((String) request.getParameter("description"));
+        bookControl.insertBookType(bookType);
+        allBookTypes(request, response);
+    }
+
+    private void deleteBookType(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        ArrayList<BookType> bookTypes = (ArrayList<BookType>) request.getSession().getAttribute("bookTypes");
+        request.setAttribute("bookType", bookTypes.get(Integer.parseInt(request.getParameter("index"))));
+        RequestDispatcher dis = getServletContext().getRequestDispatcher("/deleteType.jsp");
+        try {
+            dis.forward(request, response);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void confirmDeleteBookType(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int bookTypeID = Integer.parseInt((String) request.getParameter("bookTypeID"));
+        BookType bookType = new BookType();
+        bookType.setID(bookTypeID);
+        bookControl.deleteBookType(bookType);
+        allBookTypes(request, response);
     }
 
 }

@@ -23,7 +23,7 @@
                             <p>List Book Types</p>
                         </div>
                         <div class="col-md-1">
-                            <a href="BookTypeManagement?action=toAddType" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
+                            <a href="Management?action=toAddType" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
                         </div>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
                                     <td><%=bookType.getName()%></td>
                                     <td><%=bookType.getDescription()%></td>
                                     <td>
-                                        <a href="/KTTKServer/BookTypeManagement?index=<%=i%>&action=update" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=updateType" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                     </td>
                                     <td>
-                                        <a href="/KTTKServer/BookTypeManagement?index=<%=i%>&action=delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=deleteType" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     </td>
                                 </tr>
                                 <%

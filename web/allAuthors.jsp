@@ -23,7 +23,7 @@
                             <p>List Authors</p>
                         </div>
                         <div class="col-md-1">
-                            <a href="AuthorManagement?action=toAddAuthor" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
+                            <a href="Management?action=toAddAuthor" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
                         </div>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
                                     <td><%=author.getName()%></td>
                                     <td><%=author.getDescription()%></td>
                                     <td>
-                                        <a href="/KTTKServer/AuthorManagement?index=<%=i%>&action=update" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=updateAuthor" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                     </td>
                                     <td>
-                                        <a href="/KTTKServer/AuthorManagement?index=<%=i%>&action=delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=deleteAuthor" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     </td>
                                 </tr>
                                 <%

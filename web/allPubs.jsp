@@ -23,7 +23,7 @@
                             <p>List Publishers</p>
                         </div>
                         <div class="col-md-1">
-                            <a href="PublisherManagement?action=toAddPub" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
+                            <a href="Management?action=toAddPub" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Add</a>
                         </div>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
                                     <td><%=publisher.getName()%></td>
                                     <td><%=publisher.getDescription()%></td>
                                     <td>
-                                        <a href="/KTTKServer/PublisherManagement?index=<%=i%>&action=update" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=updatePub" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                     </td>
                                     <td>
-                                        <a href="/KTTKServer/PublisherManagement?index=<%=i%>&action=delete" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        <a href="/KTTKServer/Management?index=<%=i%>&action=deletePub" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                     </td>
                                 </tr>
                                 <%
